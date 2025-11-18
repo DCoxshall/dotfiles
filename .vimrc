@@ -22,6 +22,15 @@ let g:formatters_cpp = ['clangformat']
 let g:formatters_hpp = ['clangformat']
 noremap <F3> :Autoformat<CR>
 
+"clangd language server setup.
+if executable('clangd')
+	au User lsp_setup call lsp#register_server({
+		\ 'name': 'clangd',
+		\ 'cmd': ['clangd'],
+        	\ 'allowlist': ['c', 'cpp', 'objc', 'objcpp'],
+        \ })
+endif
+
 "  Lightline configuration.
 set laststatus=2
 set noshowmode
