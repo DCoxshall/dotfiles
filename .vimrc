@@ -1,6 +1,15 @@
-" vim-plug is the only dependency. Once that's installed, everything else
-" should happen automatically. You'll also need a .clang-format file for
-" autoformatting to work.
+" Dependency list:
+" - vim-plug
+" For Rust:
+" - rust-analyzer is installed and callable from a terminal
+" For C/C++:
+" - clangd is installed and callable from a terminal
+" For Python:
+" - black is installed and callabe from a terminal
+" - python3-flake8 is installed
+" - python3-pycodestyle is installed
+" For ordinary text files:
+" - formattxt must is installed.
 
 set visualbell
 set t_vb=
@@ -20,6 +29,13 @@ let g:formatters_c = ['clangformat']
 let g:formatters_h = ['clangformat']
 let g:formatters_cpp = ['clangformat']
 let g:formatters_hpp = ['clangformat']
+
+let g:formatdef_textformat = '"formattxt -w 80"'
+let g:formatters_text = ['textformat']
+
+let g:formatdef_customblack = '"black --preview -l 79 -"'
+
+let g:formatters_python = ['customblack']
 noremap <F3> :Autoformat<CR>
 
 "clangd language server setup.
@@ -28,6 +44,24 @@ if executable('clangd')
 		\ 'name': 'clangd',
 		\ 'cmd': ['clangd'],
         	\ 'allowlist': ['c', 'cpp', 'objc', 'objcpp'],
+        \ })
+endif
+
+"Rust language server setup.
+if executable('rust-analyzer')
+	au User lsp_setup call lsp#register_server({
+		\ 'name': 'rust-analyzer',
+		\ 'cmd': ['rust-analyzer'],
+		\ 'allowlist': ['rust'],
+		\})
+endif
+
+"Python language server setup.
+if executable('pylsp')
+    au User lsp_setup call lsp#register_server({
+        \ 'name': 'pylsp',
+        \ 'cmd': ['pylsp'],
+        \ 'allowlist': ['python'],
         \ })
 endif
 
@@ -47,3 +81,4 @@ set splitright
 set splitbelow
 set tabstop=4
 set shiftwidth=4
+set nowrap
