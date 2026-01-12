@@ -21,7 +21,12 @@ Plug 'Badacadabra/vim-archery'
 Plug 'itchyny/lightline.vim'
 Plug 'prabirshrestha/vim-lsp'
 Plug 'mattn/vim-lsp-settings'
+Plug 'sphamba/smear-cursor.nvim'
 call plug#end()
+
+" Cursor smear.
+lua require('smear_cursor').enabled = true
+lua require('smear_cursor').setup()
 
 " Autoformat configuration.
 let g:formatdef_clangformat = '"clang-format --style=file"'
