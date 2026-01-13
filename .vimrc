@@ -22,7 +22,19 @@ Plug 'itchyny/lightline.vim'
 Plug 'prabirshrestha/vim-lsp'
 Plug 'mattn/vim-lsp-settings'
 Plug 'sphamba/smear-cursor.nvim'
+Plug 'nvim-treesitter/nvim-treesitter', {'branch': 'master', 'do': ':TSUpdate'} " This line took me ~3 hours to write :P
 call plug#end()
+
+" Treesitter (syntax highlighting)
+lua << EOF
+require'nvim-treesitter.configs'.setup {
+  ensure_installed = { "c", "cpp", "rust", "python" }, -- languages to install
+  highlight = {
+    enable = true,              -- false will disable the whole extension
+    additional_vim_regex_highlighting = false,
+  },
+}
+EOF
 
 " Cursor smear.
 lua require('smear_cursor').enabled = true
