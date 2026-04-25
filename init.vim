@@ -89,7 +89,7 @@ inoremap <F3> <Esc>:Autoformat<CR>i
 if executable('clangd')
 	au User lsp_setup call lsp#register_server({
 				\ 'name': 'clangd',
-				\ 'cmd': ['clangd'],
+				\ 'cmd': ['clangd', '--query-driver=/usr/bin/g++'],
 				\ 'allowlist': ['c', 'cpp', 'objc', 'objcpp'],
 				\ })
 endif
